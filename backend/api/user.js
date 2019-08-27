@@ -62,12 +62,10 @@ module.exports = app => {
   };
 
   const getById = (req, res) => {
-    if (req.params.id) id = req.params.id;
-
     app
       .db("users")
       .select("id", "name", "email", "admin")
-      .where({ id })
+      .where({ id: req.params.id })
       .first()
       .then(user => res.json(user))
       .catch(err => res.status(500).send(err));
